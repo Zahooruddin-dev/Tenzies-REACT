@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Die from './components/Die';
 
-function App() {
+export default function App() {
 	const [diceValue, setDiceValue] = React.useState([]);
 
 	function allNewDice() {
@@ -10,7 +10,7 @@ function App() {
 			diceValue.push(Math.floor(Math.random() * 6) + 1);
 		}
 	}
-	allNewDice();
+  allNewDice()
 	const diceElements = diceValue.map(die =><Die value={die} />);
 	return (
 		<main className='container'>
@@ -21,4 +21,3 @@ function App() {
 	);
 }
 
-export default App;
