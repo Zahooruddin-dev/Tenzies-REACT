@@ -3,10 +3,27 @@ import { useState } from 'react'
 
 export default function Die(props) {
 
+/**
+ * Challenge: Add conditional styling to the Die component
+ * so that if it's held (isHeld === true), its background color
+ * changes to a light green (#59E391)
+ * 
+ * Remember: currently the Die component has no way of knowing
+ * if it's "held" or not.
+ */
+const styles = {
+backgroundColor:props.isHeld? '#59E391' : "white"
+}
 
-return ( 
-  <div className='die-face' >
-    <h2 className='dice' >{props.value}</h2>
+
+
+return (  
+  <div 
+  className='die-face' 
+  style={styles}
+  onClick={props.holdDice}
+>
+    <h2 className='dice'  >{props.value}</h2>
     </div>
 )
 
