@@ -36,7 +36,7 @@ main {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 1.25rem; /* Smaller font size */
+	font-size: 2rem; /* Smaller font size */
 	color: #093f3a;
 }
 .dice-container {
@@ -53,4 +53,5 @@ main {
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
+  background-color: white;
 }
