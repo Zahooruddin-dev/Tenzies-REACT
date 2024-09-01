@@ -21,16 +21,6 @@ function App() {
 		console.log('confetti');
 
 	}
-/**
- * Challenge: Tie off loose ends!
- * 1. If tenzies is true, Change the button text to "New Game"
- * 2. If tenzies is true, use the "react-confetti" package to
- *    render the <Confetti /> component 🎉
- * 
- *    Hint: don't worry about the `height` and `width` props
- *    it mentions in the documentation.
- */
-
 	function generateNewDie() {
 		return {
 			value: Math.floor(Math.random() * 6),
@@ -47,14 +37,23 @@ function App() {
 		return newDice;
 	}
 
+/**
+ * Challenge: Allow the user to play a new game when the
+ * button is clicked and they've already won
+ */
 	function rollDice() {
+		if(!tenzies){
 		setDice((oldDice) =>
 			oldDice.map((die) => {
 				return die.isHeld ? die : generateNewDie();
 			})
 		);
 	}
-
+	else{
+		setTenzies(false)
+		setDice(allNewDice())
+	}
+}
 	function holdDice(id) {
 		setDice((oldDice) =>
 			oldDice.map((die) => {
