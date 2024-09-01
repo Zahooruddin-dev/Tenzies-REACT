@@ -2,8 +2,35 @@ import React, { useState } from 'react';
 import './App.css';
 import Die from './components/Die';
 import { nanoid } from 'nanoid';
+import Confetti from 'react-confetti'
 function App() {
 	const [dice, setDice] = React.useState(allNewDice());
+	const[tenzies,setTenzies] = React.useState(false)
+	React.useEffect(()=>{
+		const allHeld = dice.every(die=>die.isHeld)
+		const firstValue = dice[0].value
+		const allSameValue = dice.every(die => die.value=== firstValue)
+		if(allHeld && allSameValue ){
+			setTenzies(true)
+			winner()
+
+			console.log('WON');
+		}
+	},[dice])
+	function winner(){
+		console.log('confetti');
+
+	}
+/**
+ * Challenge: Tie off loose ends!
+ * 1. If tenzies is true, Change the button text to "New Game"
+ * 2. If tenzies is true, use the "react-confetti" package to
+ *    render the <Confetti /> component 🎉
+ * 
+ *    Hint: don't worry about the `height` and `width` props
+ *    it mentions in the documentation.
+ */
+
 	function generateNewDie() {
 		return {
 			value: Math.floor(Math.random() * 6),
@@ -46,13 +73,19 @@ function App() {
 
 	return (
 		<main>
+			{tenzies&& <Confetti/>}
 			<h1 className='title'>TENZIES</h1>
 			<p className='instruction'>
       Roll ten dice and keep rolling until all dice match the same number. Try to finish as fast as you can!
 			</p>
-			<div className='dice-container'>{diceElements}</div>
-			<button onClick={rollDice} className='roll-dice'>
-				Roll
+			<div 
+			className='dice-container'>
+				{diceElements}
+				</div>
+			<button 
+			onClick={rollDice} 
+			className='roll-dice'>
+			{tenzies? 'New Game':'Roll'}
 			</button>
 		</main>
 	);
