@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Die from './components/Die';
 import { nanoid } from 'nanoid';
-import Confetti from 'react-confetti';
 
 function App() {
 	const [dice, setDice] = useState(allNewDice());
@@ -14,12 +13,12 @@ function App() {
 
 	useEffect(() => {
 		let timer;
-		if (!tenzies && time < 90) {
+		if (!tenzies && time < 60) {
 			timer = setInterval(() => setTime((prevTime) => prevTime + 1), 1000);
 		}
 
-		if (time >= 90) {
-			setTenzies(true);
+		if (time >= 60) {
+			resetGame();
 		}
 
 		return () => clearInterval(timer);
@@ -41,7 +40,7 @@ function App() {
 
 	function generateNewDie() {
 		return {
-			value: Math.floor(Math.random() * 6),
+			value: Math.floor(Math.random() * 6) + 1,
 			isHeld: false,
 			id: nanoid(),
 		};
@@ -55,6 +54,12 @@ function App() {
 		return newDice;
 	}
 
+	function resetGame() {
+		setTenzies(false);
+		setTime(0);
+		setDice(allNewDice());
+	}
+
 	function rollDice() {
 		if (!tenzies) {
 			setDice((oldDice) =>
@@ -63,9 +68,7 @@ function App() {
 				})
 			);
 		} else {
-			setTenzies(false);
-			setTime(0); // Reset the timer
-			setDice(allNewDice());
+			resetGame();
 		}
 	}
 
@@ -88,7 +91,6 @@ function App() {
 
 	return (
 		<main>
-			{tenzies && <Confetti />}
 			<h1 className='title'>TENZIES</h1>
 			<h2>Time: {time}s</h2>
 			<h2>Best Time: {bestTime}s</h2>
