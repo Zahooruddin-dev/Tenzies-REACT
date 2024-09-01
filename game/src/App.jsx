@@ -97,14 +97,14 @@ function App() {
 	return (
 		<main>
 			<h1 className='title'>TENZIES</h1>
-			<h2>Time: {time}s</h2>
-			<h2>Best Time: {bestTime}s</h2>
+			<h2 className='time'>Time: {time}s</h2>
+			<h2 className='best-time'>Best Time: {bestTime}s</h2>
 			<p className='instruction'>
 				Roll ten dice and keep rolling until all dice match the same number. Try
 				to finish as fast as you can!
 			</p>
 			<div className='dice-container'>{diceElements}</div>
-			<h2>Rolls: {rollCount}</h2>
+			<h2 className='rolls'>Rolls: {rollCount}</h2>
 			<button onClick={rollDice} className='roll-dice'>
 				{tenzies ? 'New Game' : 'Roll'}
 			</button>
