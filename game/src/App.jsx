@@ -45,6 +45,7 @@ function App() {
 		} else {
 			setTenzies(false);
 			setDice(allNewDice());
+			setTime(0); // Reset the timer
 		}
 	}
 	function holdDice(id) {
@@ -62,10 +63,35 @@ function App() {
 			holdDice={() => holdDice(die.id)}
 		/>
 	));
-
+	const [time, setTime] = useState(0);
+	const [intervalId, setIntervalId] = useState(null);
+	const [bestTime, setBestTime] = useState(() => {
+		const savedBestTime = localStorage.getItem('bestTime');
+		return savedBestTime ? JSON.parse(savedBestTime) : null;
+	});
+	
+	React.useEffect(() => {
+		if (!tenzies) {
+			const id = setInterval(() => {
+				setTime(prevTime => prevTime + 1);
+			}, 1000);
+			setIntervalId(id);
+		} else {
+			clearInterval(intervalId);
+			if (!bestTime || time < bestTime) {
+				setBestTime(time);
+				localStorage.setItem('bestTime', JSON.stringify(time));
+			}
+		}
+		return () => clearInterval(intervalId);
+	}, [tenzies, time, intervalId, bestTime]);
 	return (
 		<main>
 			{tenzies && <Confetti />}
+			<div className="timer-container">
+  <p>Time: {time}s</p>
+  {bestTime !== null && <p>Best Time: {bestTime}s</p>}
+</div>
 			<h1 className='title'>TENZIES</h1>
 			<p className='instruction'>
 				Roll ten dice and keep rolling until all dice match the same number. Try
