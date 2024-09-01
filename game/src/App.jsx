@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Die from './components/Die';
 import { nanoid } from 'nanoid';
+import Confetti from 'react-confetti';
 
 function App() {
 	const [dice, setDice] = useState(allNewDice());
@@ -96,6 +97,7 @@ function App() {
 
 	return (
 		<main>
+			{tenzies && <Confetti />}
 			<h1 className='title'>TENZIES</h1>
 			<h2 className='time'>Time: {time}s</h2>
 			<h2 className='best-time'>Best Time: {bestTime}s</h2>
