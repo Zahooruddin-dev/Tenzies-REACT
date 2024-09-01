@@ -7,6 +7,7 @@ function App() {
 	const [dice, setDice] = useState(allNewDice());
 	const [tenzies, setTenzies] = useState(false);
 	const [time, setTime] = useState(0);
+	const [rollCount, setRollCount] = useState(0);
 	const [bestTime, setBestTime] = useState(() => {
 		return localStorage.getItem('bestTime') || 90;
 	});
@@ -56,10 +57,11 @@ function App() {
 
 	function resetGame() {
 		setTenzies(false);
-		setTime(0);
 		setDice(allNewDice());
+		setRollCount(0); // Reset roll count when the game is reset
+		setTime(0); // Reset the timer
 	}
-
+	
 	function rollDice() {
 		if (!tenzies) {
 			setDice((oldDice) =>
@@ -67,10 +69,13 @@ function App() {
 					return die.isHeld ? die : generateNewDie();
 				})
 			);
+			setRollCount((prevCount) => prevCount + 1);
 		} else {
 			resetGame();
+			setRollCount(0); // Reset roll count for a new game
 		}
 	}
+	
 
 	function holdDice(id) {
 		setDice((oldDice) =>
@@ -99,6 +104,7 @@ function App() {
 				to finish as fast as you can!
 			</p>
 			<div className='dice-container'>{diceElements}</div>
+			<h2>Rolls: {rollCount}</h2>
 			<button onClick={rollDice} className='roll-dice'>
 				{tenzies ? 'New Game' : 'Roll'}
 			</button>
