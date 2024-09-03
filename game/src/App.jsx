@@ -10,7 +10,7 @@ function App() {
 	const [time, setTime] = useState(0);
 	const [rollCount, setRollCount] = useState(0);
 	const [bestTime, setBestTime] = useState(() => {
-		return localStorage.getItem('bestTime') || 90;
+		return localStorage.getItem('bestTime') || '';
 	});
 
 	useEffect(() => {
